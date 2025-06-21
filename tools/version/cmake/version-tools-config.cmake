@@ -4,10 +4,10 @@ function(template_version VERSION_FILE TEMPLATE OUTPUT)
 
     add_custom_command(
         OUTPUT ${OUTPUT}
-        COMMAND python3 ${VERSION_TOOL_DIR}/version_tools.py 
-                        ${VERSION_FILE}
-                        ${TEMPLATE}
-                        ${OUTPUT}
+        COMMAND python3 ${VERSION_TOOL_DIR}/version_tools.py template
+                        --version-file ${VERSION_FILE}
+                        --template ${TEMPLATE}
+                        --output ${OUTPUT}
         MAIN_DEPENDENCY ${VERSION_FILE}
         DEPENDS ${CMAKE_SOURCE_DIR}/.git/HEAD
     )

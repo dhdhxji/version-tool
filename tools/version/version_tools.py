@@ -10,20 +10,32 @@ class Version:
     patch: int
 
 arg_parser = ap.ArgumentParser()
-arg_parser.add_argument('version_file', type=str, help='version.json file location')
-arg_parser.add_argument('template', type=str, help='version.json file location')
-arg_parser.add_argument('output', type=str, help='version.json file location')
+arg_parser.add_argument('action', type=str, choices=['template', 'increment'], help='Action to perform')
+arg_parser.add_argument('--version-file', type=str, help='version.json file location')
+arg_parser.add_argument('--template', type=str, help='Template file location')
+arg_parser.add_argument('--output', type=str, help='Template output location')
 
 args = arg_parser.parse_args()
 
-with open(args.version_file) as f:
-    version = json.load(f)
-version = Version(**version)
+if args.action == 'template':
+    with open(args.version_file) as f:
+        version = json.load(f)
+    version = Version(**version)
+    
+    with open(args.template) as f:
+        template = f.read()
+    template = Template(template)
+    
+    
+    with open(args.output, 'w') as f:
+        f.write(template.substitute(asdict(version)))
 
-with open(args.template) as f:
-    template = f.read()
-template = Template(template)
+elif args.action == 'increment':
+    with open(args.version_file) as f:
+        version = json.load(f)
+    version = Version(**version)
 
-
-with open(args.output, 'w') as f:
-    f.write(template.substitute(asdict(version)))
+    version.patch += 1
+    with open(args.version_file, 'w') as f:
+        json.dump(asdict(version), f, indent=4)
+        f.write('\n')
