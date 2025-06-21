@@ -1,8 +1,10 @@
+set(VERSION_TOOL_DIR "${CMAKE_CURRENT_LIST_DIR}/..")
+
 function(template_version VERSION_FILE TEMPLATE OUTPUT)
 
     add_custom_command(
         OUTPUT ${OUTPUT}
-        COMMAND python3 ${CMAKE_CURRENT_LIST_DIR}/tools/version_tools.py 
+        COMMAND python3 ${VERSION_TOOL_DIR}/version_tools.py 
                         ${VERSION_FILE}
                         ${TEMPLATE}
                         ${OUTPUT}
@@ -10,5 +12,4 @@ function(template_version VERSION_FILE TEMPLATE OUTPUT)
         DEPENDS ${CMAKE_SOURCE_DIR}/.git/HEAD
     )
 
-        # WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 endfunction()
