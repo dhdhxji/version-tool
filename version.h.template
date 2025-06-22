@@ -5,4 +5,10 @@
 #define VERSION_MINOR "$minor"
 #define VERSION_PATCH "$patch"
 
+#if $dirty
+    #define VERSION_STRING "$major.$minor.$patch-$describe $author_name <$author_email>"
+#else
+    #define VERSION_STRING "$major.$minor.$patch"
+#endif
+
 #endif //VERSION_H
