@@ -16,6 +16,8 @@ endfunction()
 function(template_version VERSION_FILE TEMPLATE OUTPUT GIT_REPO_PATH)
 
     update_git_state_file(${OUTPUT} git ${GIT_REPO_PATH})
+    string(REPLACE "/" "_" output_target ${OUTPUT})
+    string(REPLACE ":" "_" output_target ${output_target})
 
     add_custom_command(
         OUTPUT ${OUTPUT}

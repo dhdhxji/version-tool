@@ -70,8 +70,8 @@ def git_info() -> GitInfo:
         git('show', '-s', '--format=%s', 'HEAD').strip(),           # commit subject
         1 if git('status', '--porcelain').strip() != '' else 0,     # dirty
         git('describe', '--always', '--dirty').strip(),
-        git('config', '--default', '"unknown"', '--get', 'user.name').strip(),
-        git('config', '--default', '"unknown"', '--get', 'user.email').strip()
+        git('config', '--default', 'unknown', '--get', 'user.name').strip(),
+        git('config', '--default', 'unknown', '--get', 'user.email').strip()
     )
 
 
